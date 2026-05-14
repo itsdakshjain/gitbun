@@ -32,6 +32,7 @@ git add .
 
 # Run Gitbun
 npx gitbun
+
 ```
 
 ---
@@ -42,6 +43,7 @@ Install globally for the best experience:
 
 ```sh
 npm install -g gitbun
+
 ```
 
 Then simply type `gitbun` in any repository.
@@ -51,7 +53,7 @@ Then simply type `gitbun` in any repository.
 ## Usage & Flags
 
 | Flag | Shortcut | Description |
-|---|---|---|
+| --- | --- | --- |
 | `--ai` | - | Use AI enhancement (default: `true`) |
 | `--no-ai` | - | Disable AI, use rule-based fallback |
 | `--model <name>` | - | Specify a specific LLM model (e.g. `llama3`) |
@@ -68,9 +70,12 @@ To get the most out of Gitbun without sending data to the cloud, use it with [Ol
 
 1. **Install Ollama** from [ollama.com](https://ollama.com).
 2. **Download a model** (we recommend `deepseek-coder` or `llama3`):
-   ```sh
-   ollama pull deepseek-coder:6.7b
-   ```
+```sh
+ollama pull deepseek-coder:6.7b
+
+```
+
+
 3. **Run Gitbun**: Gitbun will automatically detect Ollama and use your downloaded models.
 
 ---
@@ -80,21 +85,24 @@ To get the most out of Gitbun without sending data to the cloud, use it with [Ol
 Gitbun uses [Cosmiconfig](https://github.com/cosmiconfig/cosmiconfig) to find settings. You can add a `smartcommit` block to your `package.json` or create a `.smartcommitrc` file.
 
 **Example `.smartcommitrc`:**
+
 ```json
 {
   "model": "deepseek-coder:6.7b",
   "ai": true,
   "interactive": true
 }
+
 ```
 
 ---
 
 ## Fallback & Rule-Based Logic
 
-When AI is unavailable, Gitbun falls back to a deterministic summarization engine. 
+When AI is unavailable, Gitbun falls back to a deterministic summarization engine.
 
 ### How it works:
+
 1. **Type Detection**: Analyzes filenames and extensions (e.g., `.test.ts` → `test`, `docs/` → `docs`).
 2. **Scope Detection**: Identifies the primary module or package directory affected.
 3. **Verb Selection**: Map types to imperative verbs (`feat` → `add`, `fix` → `resolve`).
@@ -108,15 +116,20 @@ When AI is unavailable, Gitbun falls back to a deterministic summarization engin
 ## Examples & Screenshots
 
 ### AI Enhancement Mode
+
 **Staged Diff:**
+
 ```diff
 - export function run() {
 + export async function run(options: CliOptions) {
+
 ```
+
 **Gitbun Output:**
 `feat(core): implement support for CLI options and async execution`
 
 ### Multi-file refactor
+
 **Staged:** `src/analyzer/typeClassifier.ts`, `src/analyzer/summarizer.ts`
 **Gitbun Output:**
 `refactor(analyzer): optimize classification and summarization logic`
@@ -128,6 +141,7 @@ When AI is unavailable, Gitbun falls back to a deterministic summarization engin
 Gitbun can be used in CI/CD pipelines using the `--auto` flag.
 
 **GitHub Actions Example:**
+
 ```yaml
 jobs:
   auto-fix:
@@ -138,14 +152,88 @@ jobs:
         run: npx gitbun --auto
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 ```
 
 ---
 
-## Contributing
+##  Contributing (GSSoC '24)
 
-We welcome contributions! See the [docs/](docs/) for more details on project architecture.
+Welcome to Gitbun! We are thrilled to be part of GSSoC. Whether you are fixing a bug, improving our fallback heuristics, or adding features to our Next.js playground, your contributions are highly valued.
+
+### Local Development Setup (CLI Core)
+
+1. **Fork and Clone the repository:**
+```sh
+git clone [https://github.com/](https://github.com/)<your-username>/gitbun.git
+cd gitbun
+
+```
+
+
+2. **Install Dependencies:**
+```sh
+npm install
+
+```
+
+
+3. **Run the CLI in Development Mode:**
+We use `ts-node` to execute the TypeScript files directly during development. You can test your staged changes locally using:
+```sh
+npm run dev
+
+```
+
+
+4. **Testing & Linting:**
+Ensure your changes pass the existing test suite and linting rules before opening a PR:
+```sh
+npm test
+npm run lint
+
+```
+
+
+
+### Frontend Development (`gitbun-web`)
+
+If you want to contribute to the interactive playground and marketing site:
+
+1. Navigate to the frontend directory:
+```sh
+cd frontend
+
+```
+
+
+2. Install dependencies:
+```sh
+npm install
+
+```
+
+
+3. Set up your environment variables (Add your Gemini API key from Google AI Studio):
+```sh
+cp .env.local.example .env.local
+
+```
+
+
+4. Start the Next.js development server:
+```sh
+npm run dev
+
+```
+
+
+
+*Note: Please ensure your commits follow the [Conventional Commits](https://www.conventionalcommits.org/) specification!*
+
+---
 
 ## License
 
 MIT © [Nirvik Goswami](https://github.com/nirvik34)
+
