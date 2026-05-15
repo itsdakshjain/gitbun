@@ -24,3 +24,4 @@ jobs:
             - [ ] Have you read our [Contributing Guidelines](https://github.com/nirvik34/gitbun/blob/main/CONTRIBUTING.md)?
             
             A maintainer will review your report shortly. In the meantime, ensure your description provides enough context for us to help you!
+          add-labels: 'triage'
